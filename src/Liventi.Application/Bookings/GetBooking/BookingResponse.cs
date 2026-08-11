@@ -12,19 +12,19 @@ public sealed class BookingResponse
 
     public decimal PriceAmount { get; init; }
 
-    public string PriceCurrency { get; init; } = null!;
+    public string PriceCurrency { get; init; }
 
     public decimal CleaningFeeAmount { get; init; }
 
-    public string CleaningFeeCurrency { get; init; } = null!;
+    public string CleaningFeeCurrency { get; init; }
 
     public decimal AmenitiesUpChargeAmount { get; init; }
 
-    public string AmenitiesUpChargeCurrency { get; init; } = null!;
+    public string AmenitiesUpChargeCurrency { get; init; }
 
     public decimal TotalPriceAmount { get; init; }
 
-    public string TotalPriceCurrency { get; init; } = null!;
+    public string TotalPriceCurrency { get; init; }
 
     public DateOnly DurationStart { get; init; }
 
