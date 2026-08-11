@@ -1,0 +1,3 @@
+namespace Liventi.Domain.Apartments;
+
+public record Name(string Value);
