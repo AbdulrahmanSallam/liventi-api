@@ -1,5 +1,6 @@
 <Solution>
   <Folder Name="/src/">
+    <Project Path="src/Liventi.Application/Liventi.Application.csproj" />
     <Project Path="src/Liventi.Domain/Liventi.Domain.csproj" />
   </Folder>
 </Solution>
