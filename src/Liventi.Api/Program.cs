@@ -1,3 +1,4 @@
+using Liventi.Api.Extensions;
 using Liventi.Application;
 using Liventi.Infrastructure;
 
@@ -20,6 +21,11 @@ var app = builder.Build();
     {
         app.UseSwagger();
         app.UseSwaggerUI();
+
+        app.ApplyMigrations();
+
+        // REMARK: Uncomment if you want to seed initial data.
+        app.SeedData();
     }
 
     app.UseHttpsRedirection();
