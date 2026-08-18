@@ -1,0 +1,15 @@
+@Host = http://localhost:5000
+
+
+GET {{Host}}/api/users/register
+Content-Type: application/json
+Accept: application/json
+
+{
+    "email" : "sallam@gmail.com",
+    "fristName":"Abdulrahman",
+    "lastName":"Sallam",
+    "password":"12345",
+}
+
+##

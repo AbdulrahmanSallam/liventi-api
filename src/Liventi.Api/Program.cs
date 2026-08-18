@@ -25,7 +25,7 @@ var app = builder.Build();
         app.ApplyMigrations();
 
         // REMARK: Uncomment if you want to seed initial data.
-        app.SeedData();
+        // app.SeedData();
     }
 
     app.UseHttpsRedirection();
