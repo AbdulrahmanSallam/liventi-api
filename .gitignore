@@ -3,6 +3,11 @@
 ##
 ## Get latest from `dotnet new gitignore`
 
+.containers/
+docker-compose.override.yml
+.env
+*.pfx
+
 # dotenv files
 .env
 

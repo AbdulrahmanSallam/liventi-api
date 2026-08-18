@@ -1,6 +1,6 @@
-@Liventi.Api_HostAddress = http://localhost:5054
+@Host = http://localhost:5001
 
-GET {{Liventi.Api_HostAddress}}/weatherforecast/
+GET {{Host}}/weatherforecast/
 Accept: application/json
 
 ###
