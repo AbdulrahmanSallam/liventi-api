@@ -1,9 +1,11 @@
 ﻿using Liventi.Application.Apartments.SearchApartments;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Liventi.Api.Controllers.Apartments;
 
+[Authorize]
 [ApiController]
 [Route("api/apartments")]
 public class ApartmentsController : ControllerBase

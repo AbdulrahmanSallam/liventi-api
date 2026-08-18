@@ -1,0 +1,6 @@
+@Host=http://localhost:18080
+
+POST {{Host}}/realms/liventi/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+
+client_id=liventi-admin-client&grant_type=client_credentials&client_secret=UZDmbNxWmV4TlpaCRcju6pMRsyuV3er1

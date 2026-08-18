@@ -32,6 +32,10 @@ var app = builder.Build();
 
     app.UseCustomExceptionHandler();
 
+    app.UseAuthentication();
+
+    app.UseAuthorization();
+
     app.MapControllers();
 
 }
