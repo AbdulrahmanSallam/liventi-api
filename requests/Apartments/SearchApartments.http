@@ -1,0 +1,6 @@
+@Host = http://localhost:5000
+
+GET {{Host}}/api/apartments?startDate=07-20-2023&endDate=07-31-2023
+Accept: application/json
+
+##

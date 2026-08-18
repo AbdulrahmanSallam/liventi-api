@@ -29,9 +29,13 @@ var app = builder.Build();
     }
 
     app.UseHttpsRedirection();
+
+    app.UseCustomExceptionHandler();
+
+    app.MapControllers();
+
 }
 
-app.MapControllers();
 
 
 app.Run();

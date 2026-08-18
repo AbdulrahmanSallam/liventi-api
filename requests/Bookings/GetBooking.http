@@ -1,0 +1,9 @@
+@Host = http://localhost:5000
+@BookingId = 
+
+
+GET {{Host}}/api/bookings/
+Accept: application/json
+
+
+##

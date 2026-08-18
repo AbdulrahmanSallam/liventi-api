@@ -1,0 +1,13 @@
+@Host = http://localhost:5000
+
+POST {{Host}}/api/bookings
+Content-Type: application/json
+
+{
+    "apartmentId":"665195a4-58c3-4263-9d33-56899588ae49",
+    "userId":"665195a4-58c3-4263-9d33-56899588ae49",
+    "startDate":"2023-08-01",
+    "endDate":"2023-08-10"
+}
+
+##

@@ -1,4 +1,4 @@
-﻿// using Liventi.Api.Middleware;
+﻿using Liventi.Api.Middleware;
 using Liventi.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,8 +15,8 @@ public static class ApplicationBuilderExtensions
         dbContext.Database.Migrate();
     }
 
-    // public static void UseCustomExceptionHandler(this IApplicationBuilder app)
-    // {
-    //     app.UseMiddleware<ExceptionHandlingMiddleware>();
-    // }
+    public static void UseCustomExceptionHandler(this IApplicationBuilder app)
+    {
+        app.UseMiddleware<ExceptionHandlingMiddleware>();
+    }
 }
