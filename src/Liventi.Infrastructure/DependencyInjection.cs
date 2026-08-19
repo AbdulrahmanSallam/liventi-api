@@ -15,6 +15,7 @@ using Liventi.Infrastructure.Caching;
 using Liventi.Infrastructure.Clock;
 using Liventi.Infrastructure.Data;
 using Liventi.Infrastructure.Email;
+using Liventi.Infrastructure.Outbox;
 using Liventi.Infrastructure.Repositories;
 using Dapper;
 using Microsoft.AspNetCore.Authentication;
@@ -24,10 +25,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using Quartz;
 using AuthenticationOptions = Liventi.Infrastructure.Authentication.AuthenticationOptions;
 using AuthenticationService = Liventi.Infrastructure.Authentication.AuthenticationService;
 using IAuthenticationService = Liventi.Application.Abstractions.Authentication.IAuthenticationService;
 using Bookify.Infrastructure.Authentication;
+using Bookify.Infrastructure.Outbox;
 
 namespace Liventi.Infrastructure;
 
@@ -52,6 +55,8 @@ public static class DependencyInjection
         AddHealthChecks(services, configuration);
 
         AddApiVersioning(services);
+
+        AddBackgroundJobs(services, configuration);
 
         return services;
     }
@@ -162,5 +167,14 @@ public static class DependencyInjection
             });
     }
 
+    private static void AddBackgroundJobs(IServiceCollection services, IConfiguration configuration)
+    {
+        services.Configure<OutboxOptions>(configuration.GetSection("Outbox"));
 
+        services.AddQuartz();
+
+        services.AddQuartzHostedService(options => options.WaitForJobsToComplete = true);
+
+        services.ConfigureOptions<ProcessOutboxMessagesJobSetup>();
+    }
 }

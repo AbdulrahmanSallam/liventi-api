@@ -2,7 +2,7 @@
 @BookingId = 
 
 
-GET {{Host}}/api/bookings/{{BookingId}}
+GET {{Host}}/api/v1/bookings/{{BookingId}}
 Accept: application/json
 
 
