@@ -5,18 +5,25 @@ using Liventi.Application.Abstractions.Email;
 using Liventi.Domain.Abstractions;
 using Liventi.Domain.Apartments;
 using Liventi.Domain.Bookings;
+using Liventi.Domain.Reviews;
 using Liventi.Domain.Users;
 using Liventi.Infrastructure.Authentication;
+using Liventi.Infrastructure.Authorization;
 using Liventi.Infrastructure.Clock;
 using Liventi.Infrastructure.Data;
 using Liventi.Infrastructure.Email;
 using Liventi.Infrastructure.Repositories;
 using Dapper;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using AuthenticationOptions = Liventi.Infrastructure.Authentication.AuthenticationOptions;
+using AuthenticationService = Liventi.Infrastructure.Authentication.AuthenticationService;
+using IAuthenticationService = Liventi.Application.Abstractions.Authentication.IAuthenticationService;
 using Bookify.Infrastructure.Authentication;
 
 namespace Liventi.Infrastructure;
@@ -34,6 +41,8 @@ public static class DependencyInjection
         AddPersistence(services, configuration);
 
         AddAuthentication(services, configuration);
+
+        AddAuthorization(services);
 
         return services;
     }
@@ -54,6 +63,8 @@ public static class DependencyInjection
         services.AddScoped<IApartmentRepository, ApartmentRepository>();
 
         services.AddScoped<IBookingRepository, BookingRepository>();
+
+        services.AddScoped<IReviewRepository, ReviewRepository>();
 
         services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<ApplicationDbContext>());
 
@@ -91,5 +102,18 @@ public static class DependencyInjection
 
             httpClient.BaseAddress = new Uri(keycloakOptions.TokenUrl);
         });
+
+        services.AddHttpContextAccessor();
+
+        services.AddScoped<IUserContext, UserContext>();
+    }
+
+    private static void AddAuthorization(IServiceCollection services)
+    {
+        services.AddScoped<AuthorizationService>();
+
+        services.AddTransient<IClaimsTransformation, CustomClaimsTransformation>();
+
+
     }
 }

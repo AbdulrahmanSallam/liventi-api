@@ -1,13 +1,13 @@
 @Host = http://localhost:5000
 
 
-GET {{Host}}/api/users/login
+POST {{Host}}/api/users/login
 Content-Type: application/json
 Accept: application/json
 
 {
     "email" : "sallam@gmail.com",
-    "password":"12345",
+    "password":"12345"
 }
 
 ##
