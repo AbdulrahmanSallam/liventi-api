@@ -114,6 +114,8 @@ public static class DependencyInjection
 
         services.AddTransient<IClaimsTransformation, CustomClaimsTransformation>();
 
+        services.AddTransient<IAuthorizationHandler, PermissionAuthorizationHandler>();
 
+        services.AddTransient<IAuthorizationPolicyProvider, PermissionAuthorizationPolicyProvider>();
     }
 }

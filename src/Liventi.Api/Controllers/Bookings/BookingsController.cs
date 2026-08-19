@@ -1,10 +1,12 @@
 ﻿using Liventi.Application.Bookings.GetBooking;
 using Liventi.Application.Bookings.ReserveBooking;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Liventi.Api.Controllers.Bookings;
 
+[Authorize]
 [ApiController]
 [Route("api/bookings")]
 public class BookingsController : ControllerBase

@@ -1,0 +1,9 @@
+@Host = http://localhost:5000
+@Token = 
+
+GET {{Host}}/api/users/me
+Accept: application/json
+Authorization: Bearer {{Token}}
+
+
+##

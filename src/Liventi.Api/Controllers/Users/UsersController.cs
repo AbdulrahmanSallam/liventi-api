@@ -1,6 +1,7 @@
 ﻿using Liventi.Application.Users.GetLoggedInUser;
 using Liventi.Application.Users.LogInUser;
 using Liventi.Application.Users.RegisterUser;
+using Liventi.Infrastructure.Authorization;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -19,7 +20,7 @@ public class UsersController : ControllerBase
     }
 
     [HttpGet("me")]
-    [Authorize(Roles = Roles.Registered)]
+    [HasPermission(Permissions.UsersRead)]
     public async Task<IActionResult> GetLoggedInUser(CancellationToken cancellationToken)
     {
         var query = new GetLoggedInUserQuery();
