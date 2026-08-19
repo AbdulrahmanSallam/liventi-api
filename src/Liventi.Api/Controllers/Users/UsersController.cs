@@ -1,4 +1,5 @@
-﻿using Liventi.Application.Users.GetLoggedInUser;
+﻿using Asp.Versioning;
+using Liventi.Application.Users.GetLoggedInUser;
 using Liventi.Application.Users.LogInUser;
 using Liventi.Application.Users.RegisterUser;
 using Liventi.Infrastructure.Authorization;
@@ -9,7 +10,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace Liventi.Api.Controllers.Users;
 
 [ApiController]
-[Route("api/users")]
+[ApiVersion(ApiVersions.V1)]
+[Route("api/v{version:apiVersion}/users")]
 public class UsersController : ControllerBase
 {
     private readonly ISender _sender;

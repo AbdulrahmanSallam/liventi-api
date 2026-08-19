@@ -1,4 +1,6 @@
+using Asp.Versioning;
 using Liventi.Application.Abstractions.Authentication;
+using Liventi.Application.Abstractions.Caching;
 using Liventi.Application.Abstractions.Clock;
 using Liventi.Application.Abstractions.Data;
 using Liventi.Application.Abstractions.Email;
@@ -9,6 +11,7 @@ using Liventi.Domain.Reviews;
 using Liventi.Domain.Users;
 using Liventi.Infrastructure.Authentication;
 using Liventi.Infrastructure.Authorization;
+using Liventi.Infrastructure.Caching;
 using Liventi.Infrastructure.Clock;
 using Liventi.Infrastructure.Data;
 using Liventi.Infrastructure.Email;
@@ -25,8 +28,6 @@ using AuthenticationOptions = Liventi.Infrastructure.Authentication.Authenticati
 using AuthenticationService = Liventi.Infrastructure.Authentication.AuthenticationService;
 using IAuthenticationService = Liventi.Application.Abstractions.Authentication.IAuthenticationService;
 using Bookify.Infrastructure.Authentication;
-using Liventi.Application.Abstractions.Caching;
-using Liventi.Infrastructure.Caching;
 
 namespace Liventi.Infrastructure;
 
@@ -50,14 +51,15 @@ public static class DependencyInjection
 
         AddHealthChecks(services, configuration);
 
+        AddApiVersioning(services);
+
         return services;
     }
 
     private static void AddPersistence(IServiceCollection services, IConfiguration configuration)
     {
-        var connectionString =
-            configuration.GetConnectionString("Database") ??
-            throw new ArgumentNullException(nameof(configuration));
+        var connectionString = configuration.GetConnectionString("Database") ??
+                               throw new ArgumentNullException(nameof(configuration));
 
         services.AddDbContext<ApplicationDbContext>(options =>
         {
@@ -142,4 +144,23 @@ public static class DependencyInjection
             .AddRedis(configuration.GetConnectionString("Cache")!)
             .AddUrlGroup(new Uri(configuration["KeyCloak:BaseUrl"]!), HttpMethod.Get, "keycloak");
     }
+
+    private static void AddApiVersioning(IServiceCollection services)
+    {
+        services
+            .AddApiVersioning(options =>
+            {
+                options.DefaultApiVersion = new ApiVersion(1);
+                options.ReportApiVersions = true;
+                options.ApiVersionReader = new UrlSegmentApiVersionReader();
+            })
+            .AddMvc()
+            .AddApiExplorer(options =>
+            {
+                options.GroupNameFormat = "'v'V";
+                options.SubstituteApiVersionInUrl = true;
+            });
+    }
+
+
 }

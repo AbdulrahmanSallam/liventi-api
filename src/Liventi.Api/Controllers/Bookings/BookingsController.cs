@@ -1,4 +1,5 @@
-﻿using Liventi.Application.Bookings.GetBooking;
+﻿using Asp.Versioning;
+using Liventi.Application.Bookings.GetBooking;
 using Liventi.Application.Bookings.ReserveBooking;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -8,7 +9,8 @@ namespace Liventi.Api.Controllers.Bookings;
 
 [Authorize]
 [ApiController]
-[Route("api/bookings")]
+[ApiVersion(ApiVersions.V1)]
+[Route("api/v{version:apiVersion}/bookings")]
 public class BookingsController : ControllerBase
 {
     private readonly ISender _sender;

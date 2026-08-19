@@ -1,4 +1,5 @@
-﻿using Liventi.Application.Reviews.AddReview;
+﻿using Asp.Versioning;
+using Liventi.Application.Reviews.AddReview;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -7,7 +8,8 @@ namespace Liventi.Api.Controllers.Reviews;
 
 [Authorize]
 [ApiController]
-[Route("api/reviews")]
+[ApiVersion(ApiVersions.V1)]
+[Route("api/v{version:apiVersion}/reviews")]
 public class ReviewsController : ControllerBase
 {
     private readonly ISender _sender;
