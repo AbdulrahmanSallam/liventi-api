@@ -1,10 +1,15 @@
 using Liventi.Api.Extensions;
 using Liventi.Application;
 using Liventi.Infrastructure;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
 {
+
+    builder.Host.UseSerilog((context, loggerConfig) =>
+        loggerConfig.ReadFrom.Configuration(context.Configuration));
+
     builder.Services.AddControllers();
 
     builder.Services.AddEndpointsApiExplorer();
@@ -29,6 +34,10 @@ var app = builder.Build();
     }
 
     app.UseHttpsRedirection();
+
+    app.UseRequestContextLogging();
+
+    app.UseSerilogRequestLogging();
 
     app.UseCustomExceptionHandler();
 
