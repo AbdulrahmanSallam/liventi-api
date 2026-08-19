@@ -25,6 +25,8 @@ using AuthenticationOptions = Liventi.Infrastructure.Authentication.Authenticati
 using AuthenticationService = Liventi.Infrastructure.Authentication.AuthenticationService;
 using IAuthenticationService = Liventi.Application.Abstractions.Authentication.IAuthenticationService;
 using Bookify.Infrastructure.Authentication;
+using Liventi.Application.Abstractions.Caching;
+using Liventi.Infrastructure.Caching;
 
 namespace Liventi.Infrastructure;
 
@@ -39,6 +41,8 @@ public static class DependencyInjection
         services.AddTransient<IEmailService, EmailService>();
 
         AddPersistence(services, configuration);
+
+        AddCaching(services, configuration);
 
         AddAuthentication(services, configuration);
 
@@ -117,5 +121,15 @@ public static class DependencyInjection
         services.AddTransient<IAuthorizationHandler, PermissionAuthorizationHandler>();
 
         services.AddTransient<IAuthorizationPolicyProvider, PermissionAuthorizationPolicyProvider>();
+    }
+
+    private static void AddCaching(IServiceCollection services, IConfiguration configuration)
+    {
+        var connectionString = configuration.GetConnectionString("Cache") ??
+                               throw new ArgumentNullException(nameof(configuration));
+
+        services.AddStackExchangeRedisCache(options => options.Configuration = connectionString);
+
+        services.AddSingleton<ICacheService, CacheService>();
     }
 }
