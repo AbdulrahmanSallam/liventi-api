@@ -5,4 +5,7 @@
     <Project Path="src/Liventi.Domain/Liventi.Domain.csproj" />
     <Project Path="src/Liventi.Infrastructure/Liventi.Infrastructure.csproj" />
   </Folder>
+  <Folder Name="/test/">
+    <Project Path="test/Liventi.Domain.UnitTests/Liventi.Domain.UnitTests.csproj" />
+  </Folder>
 </Solution>
